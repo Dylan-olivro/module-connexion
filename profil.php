@@ -31,27 +31,23 @@ require "config.php";
             $password = $_POST['password']; // md5'() pour crypet le mdp
             $id = $_SESSION['users'][0]['id'];
 
-            // $recupUser = $bdd->prepare("SELECT COUNT(*) FROM utilisateurs WHERE login = ? AND prenom = ? and nom = ? and password = ?");
             $recupUser = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ? AND id != ?");
             $recupUser->execute([$login, $id]);
-            // $recupUser->fetchAll(PDO::FETCH_ASSOC);
             $insertUser = $bdd->prepare("UPDATE utilisateurs SET login = ? , prenom = ? , nom = ? , password=  ? WHERE id = ?");
 
-            if (empty($_POST['login']) || empty($_POST['prenom']) || empty($_POST['nom']) || empty($_POST['password']) || empty($_POST['cpassword'])) {
+            if (empty($login) || empty($prenom) || empty($nom) || empty($password) || empty($_POST['cpassword'])) {
                 echo "Veuillez complétez tous les champs...";
-            } elseif (!preg_match("#^[a-z0-9]+$#", $_POST['login'])) {
+            } elseif (!preg_match("#^[a-z0-9]+$#", $login)) {
                 echo "Le login doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.";
-            } elseif ($_POST['password'] != $_POST['cpassword']) {
+            } elseif ($password != $_POST['cpassword']) {
                 echo 'Les deux mots de passe sont differents';
             } elseif ($recupUser->rowCount() == 1) {
                 echo "Ce login est déjà utilisé.";
             } else {
                 $insertUser->execute([$login, $prenom, $nom, $password, $id]);
-                // Fonctionne direct apres l'inscription mais pas quand on se connect
                 $_SESSION['users'][0]['login'] = $login;
                 $_SESSION['users'][0]['prenom'] = $prenom;
                 $_SESSION['users'][0]['nom'] = $nom;
-                // $_SESSION['id'] = $recupUser->fetch()['id'];
                 header("Location: profil.php");
             }
         }
