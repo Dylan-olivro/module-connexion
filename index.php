@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "config.php";
+require "./include/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +18,7 @@ require "config.php";
     <header>
         <img src="./assets/logo-php.png" alt="logo">
         <nav>
-            <?php require './header-include.php' ?>
+            <?php require './include/header-include.php' ?>
         </nav>
     </header>
 
@@ -28,7 +28,7 @@ require "config.php";
             <p>Ceci est ma page d'accueil!</p>
         </section>
     </main>
-    <footer><a href="https://github.com/Dylan-olivro">Mon GitHub</a></footer>
+    <footer><a href="https://github.com/Dylan-olivro"><i class="fa-brands fa-github"></i></a></footer>
 </body>
 
 </html>

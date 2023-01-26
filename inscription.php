@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "config.php";
+require "./include/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +11,14 @@ require "config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/signup.css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous"></script>
+
     <title>Inscription</title>
 </head>
 
@@ -18,55 +26,55 @@ require "config.php";
     <header>
         <img src="./assets/logo-php.png" alt="logo">
         <nav>
-            <?php require './header-include.php' ?>
+            <?php require './include/header-include.php' ?>
         </nav>
     </header>
 
     <main>
-        <?php
-        if (isset($_POST['envoi'])) {
-            $login = htmlspecialchars($_POST['login']);
-            $prenom = htmlspecialchars($_POST['prenom']);
-            $nom = htmlspecialchars($_POST['nom']);
-            $password = $_POST['password']; // md5'() pour crypet le mdp
 
-            $recupUser = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?");
-            $recupUser->execute([$login]);
-
-            if (empty($login) || empty($prenom) || empty($nom) || empty($password) || empty($_POST['cpassword'])) {
-                echo "Veuillez complétez tous les champs...";
-            } elseif (!preg_match("#^[a-z0-9]+$#", $login)) {
-                echo "Le login doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.";
-            } elseif ($password != $_POST['cpassword']) {
-                echo 'Les deux mots de passe sont differents';
-            } elseif ($recupUser->rowCount() > 0) {
-                echo "Ce login est déjà utilisé.";
-            } else {
-                $insertUser = $bdd->prepare("INSERT INTO utilisateurs(login, prenom, nom, password)VALUES(?,?,?,?)");
-                $insertUser->execute([$login, $prenom, $nom, $password]);
-                header("Location: index.php");
-            }
-        }
-        ?>
         <form method="POST" action="">
-            <label for="login">Login : </label>
-            <input type="text" id="login" name="login" required autofocus>
-            <br>
-            <label for="prenom">Prénom : </label>
-            <input type="text" id="prenom" name="prenom" required>
-            <br>
-            <label for="nom">Nom : </label>
-            <input type="text" id="nom" name="nom" required>
-            <br>
-            <label for="password">Password : </label>
-            <input type="password" id="password" name="password" required>
-            <br>
-            <label for="cpassword">Confirmation : </label>
-            <input type="password" id="cpassword" name="cpassword" required>
-            <br>
-            <input type="submit" name="envoi">
+            <h3>Sign Up</h3>
+
+            <label for="login">Login</label>
+            <input type="text" id="login" name="login" placeholder="Login" required autofocus>
+            <label for="prenom">Prénon</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Prenom" required>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Nom" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <label for="cpassword">Confirmation</label>
+            <input type="password" id="cpassword" name="cpassword" placeholder="Confirmation" required>
+            <?php
+            if (isset($_POST['envoi'])) {
+                $login = htmlspecialchars($_POST['login']);
+                $prenom = htmlspecialchars($_POST['prenom']);
+                $nom = htmlspecialchars($_POST['nom']);
+                $password = $_POST['password']; // md5'() pour crypet le mdp
+
+                $recupUser = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?");
+                $recupUser->execute([$login]);
+
+                if (empty($login) || empty($prenom) || empty($nom) || empty($password) || empty($_POST['cpassword'])) {
+                    echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspVeuillez complétez tous les champs.</p>";
+                } elseif (!preg_match("#^[a-z0-9]+$#", $login)) {
+                    echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLe login doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.</p>";
+                } elseif ($password != $_POST['cpassword']) {
+                    echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLes deux mots de passe sont differents.</p>";
+                } elseif ($recupUser->rowCount() > 0) {
+                    echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspCe login est déjà utilisé.</p>";
+                } else {
+                    $insertUser = $bdd->prepare("INSERT INTO utilisateurs(login, prenom, nom, password)VALUES(?,?,?,?)");
+                    $insertUser->execute([$login, $prenom, $nom, $password]);
+                    header("Location: index.php");
+                }
+            }
+            ?>
+            <input type="submit" name="envoi" id="button" value="Sign Up">
         </form>
     </main>
+
+    <footer><a href="https://github.com/Dylan-olivro"><i class="fa-brands fa-github"></i></a></footer>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "config.php";
+require "./include/config.php";
 
 if ($_SESSION['login'] != 'admin') {
     header("Location: index.php");
@@ -22,9 +22,7 @@ if ($_SESSION['login'] != 'admin') {
     <header>
         <img src="./assets/logo-php.png" alt="logo">
         <nav>
-            <?php
-            require './header-include.php';
-            ?>
+            <?php require './include/header-include.php' ?>
         </nav>
     </header>
 
@@ -73,7 +71,7 @@ if ($_SESSION['login'] != 'admin') {
         </style>
     </main>
 
-    <footer><a href="https://github.com/Dylan-olivro">Mon GitHub</a></footer>
+    <footer><a href="https://github.com/Dylan-olivro"><i class="fa-brands fa-github"></i></a></footer>
 </body>
 
 </html>
