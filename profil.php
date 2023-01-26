@@ -24,7 +24,7 @@ require "./include/config.php";
 
 <body>
     <header>
-        <img src="./assets/logo-php.png" alt="logo">
+        <img src="./assets/mysql-logo.png" alt="logo">
         <nav>
             <?php require './include/header-include.php' ?>
         </nav>

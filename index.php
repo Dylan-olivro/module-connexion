@@ -11,22 +11,39 @@ require "./include/config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/common.css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous"></script>
+
     <title>Index</title>
 </head>
 
 <body>
     <header>
-        <img src="./assets/logo-php.png" alt="logo">
+        <img src="./assets/mysql-logo.png" alt="logo">
         <nav>
             <?php require './include/header-include.php' ?>
         </nav>
     </header>
 
     <main>
-        <section class="first-section">
-            <h1>Page d'accueil</h1>
-            <p>Ceci est ma page d'accueil!</p>
-        </section>
+        <h1>Bienvenue<br>
+            <?php
+            if (isset($_SESSION['login'])) {
+                echo strtoupper($_SESSION['login']);
+            }
+            ?>
+        </h1>
+        <style>
+            h1 {
+                text-align: center;
+                font-size: 5rem;
+                margin: 5% 0 0;
+            }
+        </style>
     </main>
     <footer><a href="https://github.com/Dylan-olivro"><i class="fa-brands fa-github"></i></a></footer>
 </body>

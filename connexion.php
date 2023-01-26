@@ -24,7 +24,7 @@ require "./include/config.php";
 
 <body>
     <header>
-        <img src="./assets/logo-php.png" alt="logo">
+        <img src="./assets/mysql-logo.png" alt="logo">
         <nav>
             <?php require './include/header-include.php' ?>
         </nav>
@@ -34,9 +34,9 @@ require "./include/config.php";
         <form method="POST" action="">
             <h3>Login Here</h3>
             <label for="login">Username</label>
-            <input type="text" id="login" name="login" placeholder="Login" required autofocus>
+            <input type="text" id="login" name="login" placeholder="Login" required autofocus autocomplete="off">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder='Password' required>
+            <input type="password" id="password" name="password" placeholder='Password' required autocomplete="off">
             <?php
             if (isset($_POST['envoi'])) {
                 $login = htmlspecialchars($_POST['login']);

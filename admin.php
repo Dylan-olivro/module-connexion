@@ -15,12 +15,19 @@ if ($_SESSION['login'] != 'admin') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/common.css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous"></script>
+
     <title>Admin</title>
 </head>
 
 <body>
     <header>
-        <img src="./assets/logo-php.png" alt="logo">
+        <img src="./assets/mysql-logo.png" alt="logo">
         <nav>
             <?php require './include/header-include.php' ?>
         </nav>
@@ -32,6 +39,7 @@ if ($_SESSION['login'] != 'admin') {
         $result = $request->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <table>
+            <h1>All Users</h1>
             <thead>
                 <tr>
                     <?php
@@ -56,10 +64,14 @@ if ($_SESSION['login'] != 'admin') {
             main {
                 display: flex;
                 flex-direction: column;
+                align-items: center;
+                margin: 2% 0;
             }
 
             table {
+                margin: 2% 0 0;
                 border-collapse: collapse;
+                width: 60%;
             }
 
             th,
@@ -67,6 +79,10 @@ if ($_SESSION['login'] != 'admin') {
                 padding: 0.5em;
                 border: 1px solid;
                 text-align: center;
+            }
+
+            tr:hover {
+                background-color: rgba(255, 255, 255, 0.3);
             }
         </style>
     </main>

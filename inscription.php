@@ -24,7 +24,7 @@ require "./include/config.php";
 
 <body>
     <header>
-        <img src="./assets/logo-php.png" alt="logo">
+        <img src="./assets/mysql-logo.png" alt="logo">
         <nav>
             <?php require './include/header-include.php' ?>
         </nav>
@@ -36,11 +36,11 @@ require "./include/config.php";
             <h3>Sign Up</h3>
 
             <label for="login">Login</label>
-            <input type="text" id="login" name="login" placeholder="Login" required autofocus>
+            <input type="text" id="login" name="login" placeholder="Login" required autofocus autocomplete="off">
             <label for="prenom">Prénon</label>
-            <input type="text" id="prenom" name="prenom" placeholder="Prenom" required>
+            <input type="text" id="prenom" name="prenom" placeholder="Prenom" required autocomplete="off">
             <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" placeholder="Nom" required>
+            <input type="text" id="nom" name="nom" placeholder="Nom" required autocomplete="off">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <label for="cpassword">Confirmation</label>
