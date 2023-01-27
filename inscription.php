@@ -66,7 +66,7 @@ require "./include/config.php";
                 } else {
                     $insertUser = $bdd->prepare("INSERT INTO utilisateurs(login, prenom, nom, password)VALUES(?,?,?,?)");
                     $insertUser->execute([$login, $prenom, $nom, $password]);
-                    header("Location: index.php");
+                    header("Location: connexion.php");
                 }
             }
             ?>
