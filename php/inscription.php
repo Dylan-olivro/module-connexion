@@ -61,7 +61,7 @@ require("./include/config.php");
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLe login doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.</p>";
                 } elseif ($password != md5($_POST['cpassword'])) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLes deux mots de passe sont differents.</p>";
-                } elseif ($rcupUser->rowCount() > 0) {
+                } elseif ($recupUser->rowCount() > 0) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspCe login est déjà utilisé.</p>";
                 } else {
                     $insertUser = $bdd->prepare("INSERT INTO utilisateurs(login, prenom, nom, password)VALUES(?,?,?,?)");
