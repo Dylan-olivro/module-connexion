@@ -3,7 +3,7 @@ session_start();
 require "./include/config.php";
 
 if ($_SESSION['login'] != 'admin') {
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ if ($_SESSION['login'] != 'admin') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="../css/common.css">
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@ if ($_SESSION['login'] != 'admin') {
 
 <body>
     <header>
-        <img src="./assets/mysql-logo.png" alt="logo">
+        <img src="../assets/mysql-logo.png" alt="logo">
         <nav>
             <?php require './include/header-include.php' ?>
         </nav>
@@ -35,7 +35,7 @@ if ($_SESSION['login'] != 'admin') {
 
     <main>
         <?php
-        $request = $bdd->query('SELECT * FROM utilisateurs');
+        $request = $bdd->query('SELECT id,login,prenom,nom FROM utilisateurs');
         $result = $request->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <table>
@@ -55,7 +55,6 @@ if ($_SESSION['login'] != 'admin') {
                         <td><?= $result[$i]['login'] ?></td>
                         <td><?= $result[$i]['prenom'] ?></td>
                         <td><?= $result[$i]['nom'] ?></td>
-                        <td><?= $result[$i]['password'] ?></td>
                     </tr>
                 <?php endfor; ?>
             </tbody>

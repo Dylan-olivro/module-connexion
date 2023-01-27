@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "./include/config.php";
+require("./include/config.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +10,8 @@ require "./include/config.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/signup.css">
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,65 +19,61 @@ require "./include/config.php";
     <!-- FONT AWESOME -->
     <script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous"></script>
 
-    <title>Profil</title>
+    <title>Inscription</title>
 </head>
 
 <body>
     <header>
-        <img src="./assets/mysql-logo.png" alt="logo">
+        <img src="../assets/mysql-logo.png" alt="logo">
         <nav>
-            <?php require './include/header-include.php' ?>
+            <?php require('./include/header-include.php') ?>
         </nav>
     </header>
 
     <main>
 
-        <form method="post" action="profil.php">
-            <h3>Edit</h3>
+        <form method="POST" action="">
+            <h3>Sign Up</h3>
 
             <label for="login">Login</label>
-            <input type="text" name="login" id="login" value="<?= $_SESSION['users'][0]['login']  ?>" required />
-            <label for="prenom">Prénom</label>
-            <input type="text" name="prenom" id="prenom" value="<?= $_SESSION['users'][0]['prenom']  ?>" required />
+            <input type="text" id="login" name="login" placeholder="Login" required autofocus autocomplete="off">
+            <label for="prenom">Prénon</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Prenom" required autocomplete="off">
             <label for="nom">Nom</label>
-            <input type="text" name="nom" id="nom" value="<?= $_SESSION['users'][0]['nom']  ?>" />
+            <input type="text" id="nom" name="nom" placeholder="Nom" required autocomplete="off">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" value="<?= $_SESSION['users'][0]['password'] ?>" required />
+            <input type="password" id="password" name="password" placeholder="Password" required>
             <label for="cpassword">Confirmation</label>
-            <input type="password" name="cpassword" id="cpassword" value="<?= $_SESSION['users'][0]['password'] ?>" required />
+            <input type="password" id="cpassword" name="cpassword" placeholder="Confirmation" required>
             <?php
             if (isset($_POST['envoi'])) {
                 $login = htmlspecialchars($_POST['login']);
                 $prenom = htmlspecialchars($_POST['prenom']);
                 $nom = htmlspecialchars($_POST['nom']);
-                $password = $_POST['password']; // md5'() pour crypet le mdp
-                $id = $_SESSION['users'][0]['id'];
+                $password = md5($_POST['password']); // md5'() pour crypet le mdp
 
-                $recupUser = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ? AND id != ?");
-                $recupUser->execute([$login, $id]);
-                $insertUser = $bdd->prepare("UPDATE utilisateurs SET login = ? , prenom = ? , nom = ? , password=  ? WHERE id = ?");
+                $recupUser = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?");
+                $recupUser->execute([$login]);
 
                 if (empty($login) || empty($prenom) || empty($nom) || empty($password) || empty($_POST['cpassword'])) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspVeuillez complétez tous les champs.</p>";
                 } elseif (!preg_match("#^[a-z0-9]+$#", $login)) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLe login doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.</p>";
-                } elseif ($password != $_POST['cpassword']) {
+                } elseif ($password != md5($_POST['cpassword'])) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLes deux mots de passe sont differents.</p>";
-                } elseif ($recupUser->rowCount() > 0) {
+                } elseif ($rcupUser->rowCount() > 0) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspCe login est déjà utilisé.</p>";
                 } else {
-                    $insertUser->execute([$login, $prenom, $nom, $password, $id]);
-                    $_SESSION['users'][0]['login'] = $login;
-                    $_SESSION['users'][0]['prenom'] = $prenom;
-                    $_SESSION['users'][0]['nom'] = $nom;
-                    header("Location: profil.php");
+                    $insertUser = $bdd->prepare("INSERT INTO utilisateurs(login, prenom, nom, password)VALUES(?,?,?,?)");
+                    $insertUser->execute([$login, $prenom, $nom, $password]);
+                    header("Location: connexion.php");
                 }
             }
             ?>
-            <input type="submit" name="envoi" id="button" value="Edit">
+            <input type="submit" name="envoi" id="button" value="Sign Up">
         </form>
-
     </main>
+
     <footer><a href="https://github.com/Dylan-olivro"><i class="fa-brands fa-github"></i></a></footer>
 </body>
 

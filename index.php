@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "./include/config.php";
+require "./php/include/config.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@ require "./include/config.php";
     <header>
         <img src="./assets/mysql-logo.png" alt="logo">
         <nav>
-            <?php require './include/header-include.php' ?>
+            <?php require './php/include/header-index.php' ?>
         </nav>
     </header>
 

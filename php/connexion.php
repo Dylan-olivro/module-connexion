@@ -10,8 +10,8 @@ require "./include/config.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/login.css">
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@ require "./include/config.php";
 
 <body>
     <header>
-        <img src="./assets/mysql-logo.png" alt="logo">
+        <img src="../assets/mysql-logo.png" alt="logo">
         <nav>
             <?php require './include/header-include.php' ?>
         </nav>
@@ -40,7 +40,7 @@ require "./include/config.php";
             <?php
             if (isset($_POST['envoi'])) {
                 $login = htmlspecialchars($_POST['login']);
-                $password = $_POST['password']; // md5'() pour crypet le mdp
+                $password = md5($_POST['password']); // md5'() pour crypet le mdp
 
                 if (!empty($login) && !empty($password)) {
                     $recupUser = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ? AND password = ?");
@@ -50,7 +50,7 @@ require "./include/config.php";
                         $_SESSION['login'] = $login;
                         $_SESSION['password'] = $password;
                         $_SESSION['users'] = $recupUser->fetchAll(PDO::FETCH_ASSOC);
-                        header("Location: index.php");
+                        header("Location: ../index.php");
                     } else {
                         echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspVotre login ou mot de passe incorect.</p>";
                     }
