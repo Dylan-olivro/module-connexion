@@ -71,6 +71,10 @@ if ($_SESSION['login'] != 'admin') {
                 margin: 2% 0 0;
                 border-collapse: collapse;
                 width: 60%;
+                background-color: rgba(255, 255, 255, 0.13);
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
             }
 
             th,

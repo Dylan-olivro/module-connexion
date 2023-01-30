@@ -37,7 +37,7 @@ require("./include/config.php");
 
             <label for="login">Login</label>
             <input type="text" id="login" name="login" placeholder="Login" required autofocus autocomplete="off">
-            <label for="prenom">Prénon</label>
+            <label for="prenom">Prénom</label>
             <input type="text" id="prenom" name="prenom" placeholder="Prenom" required autocomplete="off">
             <label for="nom">Nom</label>
             <input type="text" id="nom" name="nom" placeholder="Nom" required autocomplete="off">
@@ -46,7 +46,7 @@ require("./include/config.php");
             <label for="cpassword">Confirmation</label>
             <input type="password" id="cpassword" name="cpassword" placeholder="Confirmation" required>
             <?php
-            if (isset($_POST['envoi'])) {
+            if (isset($_POST['submit'])) {
                 $login = htmlspecialchars($_POST['login']);
                 $prenom = htmlspecialchars($_POST['prenom']);
                 $nom = htmlspecialchars($_POST['nom']);
@@ -70,7 +70,7 @@ require("./include/config.php");
                 }
             }
             ?>
-            <input type="submit" name="envoi" id="button" value="Sign Up">
+            <input type="submit" name="submit" id="button" value="Sign Up">
         </form>
     </main>
 

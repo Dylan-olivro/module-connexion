@@ -38,7 +38,7 @@ require "./include/config.php";
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder='Password' required autocomplete="off">
             <?php
-            if (isset($_POST['envoi'])) {
+            if (isset($_POST['submit'])) {
                 $login = htmlspecialchars($_POST['login']);
                 $password = md5($_POST['password']); // md5'() pour crypet le mdp
 
@@ -49,8 +49,12 @@ require "./include/config.php";
                     if ($recupUser->rowCount() > 0) {
                         $_SESSION['login'] = $login;
                         $_SESSION['password'] = $password;
-                        $_SESSION['users'] = $recupUser->fetchAll(PDO::FETCH_ASSOC);
+                        $recupUser = $recupUser->fetchAll(PDO::FETCH_ASSOC);
+                        $_SESSION = $recupUser[0];
+                        // var_dump($recupUser->fetchAll(PDO::FETCH_ASSOC)[0]['login']);
                         header("Location: ../index.php");
+                        // var_dump($recupUser);
+                        // var_dump($_SESSION);
                     } else {
                         echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspVotre login ou mot de passe incorect.</p>";
                     }
@@ -59,7 +63,7 @@ require "./include/config.php";
                 }
             }
             ?>
-            <input type="submit" name="envoi" value="Log In" id="button">
+            <input type="submit" name="submit" value="Log In" id="button">
         </form>
     </main>
 

@@ -43,6 +43,12 @@ require "./php/include/config.php"
                 font-size: 5rem;
                 margin: 5% 0 0;
             }
+
+            @media screen and (max-width: 425px) {
+                h1 {
+                    font-size: 3rem;
+                }
+            }
         </style>
     </main>
     <footer><a href="https://github.com/Dylan-olivro"><i class="fa-brands fa-github"></i></a></footer>

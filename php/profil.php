@@ -36,22 +36,22 @@ require "./include/config.php";
             <h3>Edit</h3>
 
             <label for="login">Login</label>
-            <input type="text" name="login" id="login" value="<?= $_SESSION['users'][0]['login']  ?>" required />
+            <input type="text" name="login" id="login" value="<?= $_SESSION['login']  ?>" required />
             <label for="prenom">Prénom</label>
-            <input type="text" name="prenom" id="prenom" value="<?= $_SESSION['users'][0]['prenom']  ?>" required />
+            <input type="text" name="prenom" id="prenom" value="<?= $_SESSION['prenom']  ?>" required />
             <label for="nom">Nom</label>
-            <input type="text" name="nom" id="nom" value="<?= $_SESSION['users'][0]['nom']  ?>" />
+            <input type="text" name="nom" id="nom" value="<?= $_SESSION['nom']  ?>" />
             <label for="password">Password</label>
             <input type="password" name="password" id="password" required />
             <label for="cpassword">Confirmation</label>
             <input type="password" name="cpassword" id="cpassword" required />
             <?php
-            if (isset($_POST['envoi'])) {
+            if (isset($_POST['submit'])) {
                 $login = htmlspecialchars($_POST['login']);
                 $prenom = htmlspecialchars($_POST['prenom']);
                 $nom = htmlspecialchars($_POST['nom']);
                 $password = md5($_POST['password']); // md5'() pour crypet le mdp
-                $id = $_SESSION['users'][0]['id'];
+                $id = $_SESSION['id'];
 
                 $recupUser = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ? AND id != ?");
                 $recupUser->execute([$login, $id]);
@@ -63,20 +63,20 @@ require "./include/config.php";
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLe login doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.</p>";
                 } elseif ($password != md5($_POST['cpassword'])) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspLes deux mots de passe sont differents.</p>";
-                } elseif ($password != $_SESSION['users'][0]['password']) {
+                } elseif ($password != $_SESSION['password']) {
                     echo  "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspCe n'est pas le bon mot de passe</p>";
                 } elseif ($recupUser->rowCount() > 0) {
                     echo "<p><i class='fa-solid fa-triangle-exclamation'></i>&nbspCe login est déjà utilisé.</p>";
                 } else {
                     $insertUser->execute([$login, $prenom, $nom, $password, $id]);
-                    $_SESSION['users'][0]['login'] = $login;
-                    $_SESSION['users'][0]['prenom'] = $prenom;
-                    $_SESSION['users'][0]['nom'] = $nom;
+                    $_SESSION['login'] = $login;
+                    $_SESSION['prenom'] = $prenom;
+                    $_SESSION['nom'] = $nom;
                     header("Location: profil.php");
                 }
             }
             ?>
-            <input type="submit" name="envoi" id="button" value="Edit">
+            <input type="submit" name="submit" id="button" value="Edit">
         </form>
 
     </main>
